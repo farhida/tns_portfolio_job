@@ -1,0 +1,10 @@
+{% extends "Portfolio/base.html" %}
+{% block title %}Dashboard | Portfolio{% endblock %}
+{% block content %}
+<main class="container page-wrap">
+  <p class="eyebrow">ADMIN WORKSPACE</p><h1 class="page-title">Welcome, {{ user.username }}.</h1><p class="lead">Manage your portfolio content from one place.</p>
+  <div class="stats-grid"><div class="stat-card"><span>Projects</span><strong>{{ project_count }}</strong></div><div class="stat-card"><span>Skills</span><strong>{{ skill_count }}</strong></div><div class="stat-card"><span>Messages</span><strong>{{ message_count }}</strong></div><div class="stat-card"><span>Unread messages</span><strong>{{ unread_count }}</strong></div></div>
+  <section class="dashboard-panel"><h2>Content management</h2><p>Use Django Admin to add, edit, or remove your profile, skills, education, experience, projects, and contact messages.</p><a class="button button-dark" href="/admin/">Open Django Admin ↗</a><a class="text-link" href="{% url 'resume' %}">Preview resume ↗</a></section>
+  <p class="muted small-note">Only staff users can access this dashboard. Public registration does not grant administrator permissions.</p>
+</main>
+{% endblock %}

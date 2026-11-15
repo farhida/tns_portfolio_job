@@ -1,0 +1,12 @@
+{% extends "Portfolio/base.html" %}
+{% block title %}{{ page_title }} | Portfolio{% endblock %}
+{% block content %}
+<main class="auth-wrap">
+  <form method="post" class="auth-card">{% csrf_token %}<p class="eyebrow">PORTFOLIO ACCOUNT</p><h1>{{ page_title }}</h1><p class="muted">{% if is_register %}Create an account to access your portfolio workspace.{% else %}Sign in to continue to your workspace.{% endif %}</p>
+  {% if form.non_field_errors %}<div class="error-box">{{ form.non_field_errors }}</div>{% endif %}
+  {% for field in form %}<div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</div>{% endfor %}
+  <button class="button button-dark full-width" type="submit">{% if is_register %}Create account{% else %}Login{% endif %} ↗</button>
+  <p class="auth-switch">{% if is_register %}Already have an account? <a href="{% url 'login' %}">Login</a>{% else %}Don't have an account? <a href="{% url 'register' %}">Register</a>{% endif %}</p>
+</form>
+</main>
+{% endblock %}

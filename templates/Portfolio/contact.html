@@ -1,0 +1,9 @@
+{% extends "Portfolio/base.html" %}
+{% block title %}Contact | Portfolio{% endblock %}
+{% block content %}
+<main class="container page-wrap contact-page">
+  <p class="eyebrow">LET'S CONNECT</p><h1 class="page-title">Have a good idea?<br><span>Let's talk.</span></h1>
+  <div class="contact-layout"><div><p class="lead">Have a project, opportunity, or just want to say hello? Send a message.</p>{% if profile.email %}<p><strong>Email</strong><br><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>{% endif %}{% if profile.location %}<p><strong>Location</strong><br>{{ profile.location }}</p>{% endif %}</div>
+  <form method="post" class="form-card">{% csrf_token %}{% for field in form %}<div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</div>{% endfor %}<button class="button button-dark" type="submit">Send message ↗</button></form></div>
+</main>
+{% endblock %}

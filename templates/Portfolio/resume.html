@@ -1,0 +1,13 @@
+{% extends "Portfolio/base.html" %}
+{% block title %}Resume | Portfolio{% endblock %}
+{% block content %}
+<main class="container resume-wrap">
+  <div class="resume-toolbar"><a class="back-link" href="{% url 'home' %}">← Back to portfolio</a><button class="button button-dark" onclick="window.print()">Print / Save PDF ↓</button></div>
+  <header class="resume-header"><div><p class="eyebrow">CURRICULUM VITAE</p><h1>{{ profile.full_name|default:"Your Name" }}</h1><h2>{{ profile.headline|default:"Web Developer" }}</h2></div><div class="resume-contact">{% if profile.email %}<p>{{ profile.email }}</p>{% endif %}{% if profile.phone %}<p>{{ profile.phone }}</p>{% endif %}{% if profile.location %}<p>{{ profile.location }}</p>{% endif %}</div></header>
+  <section class="resume-section"><h3>Profile</h3><p>{{ profile.about|default:"Add your profile summary in Django Admin." }}</p></section>
+  <section class="resume-section"><h3>Skills</h3><p>{% for skill in skills %}{{ skill.name }}{% if not forloop.last %} · {% endif %}{% empty %}No skills added yet.{% endfor %}</p></section>
+  <section class="resume-section"><h3>Experience</h3>{% for item in experiences %}<div class="resume-entry"><div><strong>{{ item.role }}</strong> — {{ item.company }}</div><small>{{ item.start_date|date:"M Y" }} — {% if item.is_current %}Present{% elif item.end_date %}{{ item.end_date|date:"M Y" }}{% endif %}</small><p>{{ item.description }}</p></div>{% empty %}<p>No experience added yet.</p>{% endfor %}</section>
+  <section class="resume-section"><h3>Education</h3>{% for item in education %}<div class="resume-entry"><div><strong>{{ item.degree }}</strong> — {{ item.institution }}</div><small>{{ item.start_date|date:"M Y" }} — {% if item.is_current %}Present{% elif item.end_date %}{{ item.end_date|date:"M Y" }}{% endif %}</small><p>{{ item.field_of_study }} {{ item.description }}</p></div>{% empty %}<p>No education added yet.</p>{% endfor %}</section>
+  <section class="resume-section"><h3>Projects</h3>{% for project in projects %}<div class="resume-entry"><strong>{{ project.title }}</strong><p>{{ project.short_description }}</p><small>{{ project.tech_stack }}</small></div>{% empty %}<p>No projects added yet.</p>{% endfor %}</section>
+</main>
+{% endblock %}
